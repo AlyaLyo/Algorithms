@@ -16,6 +16,7 @@ public:
 
     Array <T>& operator = (const Array<T>& other);
     Array <T>& operator = (Array<T>&& other);
+    Array<T>& operator = (Array<T> rhs);
 
     int insert(const T& value);
     int insert(int index, const T& value);
@@ -131,6 +132,15 @@ Array<T>::Array(Array<T>&& other):
     other.buf_ = nullptr;
     other.size_ = 0;
     other.capacity_ = 0;
+}
+
+template<typename T>
+Array<T>& Array<T>::operator = (Array<T> rhs)
+{
+    std::swap(capacity_, rhs.capacity_);
+    std::swap(size_, rhs.size_);
+    std::swap(buf_, rhs.buf_);
+    return *this;
 }
 
 template<typename T>
